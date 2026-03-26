@@ -1,240 +1,563 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Alex's Personal Site</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Request Form Workflow — Moss Energy</title>
+<link rel="stylesheet" href="css/styles.css">
+
+<meta name="description" content="Interactive Change Request workflow flowchart for Moss Energy Change Control Board (CCB).">
+<meta name="theme-color" content="#003366">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/favicon.ico" sizes="any">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:title" content="Change Request Form — Workflow Flowchart">
+<meta property="og:description" content="Interactive workflow from submission to closure for CCB change requests.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'">
 </head>
-
-<style>
-  * {
-    box-sizing: border-box;
-  }
-
-  .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 5px;
-  }
-
-  .flex-item-left {
-    float: left;
-    flex: 0 0 300px;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 0 10px 0 20px;
-    margin-left: 8px;
-    margin-right: 8px;
-    margin-bottom: 12px;
-  }
-
-  .flex-item-right {
-    float: left;
-    flex: 66%;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 0 15px;
-    margin-left: 8px;
-    margin-right: 8px;
-    margin-bottom: 10px;
-  }
-
-
-  @media screen and (max-width: 620px) {
-    .flex-container {
-      flex-direction: column;
-    }
-  }
-</style>
-
 <body>
 
-  <div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="contact-me.html">Contact Me</a>
-    <a href="projects-envision.html">Projects</a>
-    <a href="tableau-samples-ecommerce.html">Tableau Dashboards</a>
-  </div>
-
-  <div class="flex-container">
-    <div class="flex-item-left">
-
-      <img style="padding: 5px; margin: 5px;" src="images/Alex Headshot.png" alt="Alex profile picture">
-      <h2>Alex Diamant</h2>
-      <p><span class="material-icons">
-          person
-        </span> Project Manager</p>
-      <p><span class="material-icons">
-          home
-        </span> Plantation, FL</p>
-      <p><span class="material-icons">
-          email
-        </span><a href="mailto:alextdiamant@gmail.com"> alextdiamant@gmail.com</a></p>
-      <p><span class="material-icons">
-          smartphone
-        </span> (954) 980-1901</p>
-      <p><span class="material-icons">
-          link
-        </span><a href="https://www.linkedin.com/in/alexdiamant/" target="_blank"> linkedin.com/in/alexdiamant</a></p>
-      <hr>
-      <h2>Skills</h2>
-      <p style="
-          margin-bottom: 5px;
-        ">Stakeholder Management</p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-          color: #11999e;
-        "><span class="material-icons">
-          star star star star star
-        </span></p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-        ">Tableau</p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-          color: #11999e;
-        "><span class="material-icons">
-          star star star star star
-        </span></p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-        ">Excel</p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-          color: #11999e;
-        "><span class="material-icons">
-          star star star star star
-        </span></p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-        ">Vendor Management</p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-          color: #11999e;
-        "><span class="material-icons">
-          star star star star star
-        </span></p>
-      <p style="
-              margin-top: 5px;
-              margin-bottom: 5px;
-            ">Jira</p>
-      <p style="
-              margin-top: 5px;
-              margin-bottom: 5px;
-              color: #11999e;
-            "><span class="material-icons">
-          star star star star star
-        </span></p>
-      <p style="
-            margin-top: 5px;
-            margin-bottom: 5px;
-          ">Scrum</p>
-      <p style="
-            margin-top: 5px;
-            margin-bottom: 5px;
-            color: #11999e;
-          "><span class="material-icons">
-          star star star star star
-        </span></p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-        ">Microsoft Project</p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-          color: #11999e;
-        "><span class="material-icons">
-          star star star star star_border
-        </span></p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-        ">HTML / CSS</p>
-      <p style="
-          margin-top: 5px;
-          margin-bottom: 5px;
-          color: #11999e;
-        "><span class="material-icons">
-          star star star star_border star_border
-        </span></p>
-
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">ME</div>
+    <div>
+      <h1>Change Request Form — Workflow Flowchart</h1>
+      <div class="subtitle">Complete lifecycle from submission to closure</div>
     </div>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-outline" data-action="print">🖨️ Print</button>
+    <button class="btn btn-outline" data-action="open-help">❓ Help</button>
+  </div>
+</div>
 
+<!-- LEGEND -->
+<div class="legend-bar">
+  <span class="legend-title">Legend:</span>
+  <div class="legend-item"><div class="legend-swatch form"></div> Form Completion</div>
+  <div class="legend-item"><div class="legend-swatch email"></div> Email Notification</div>
+  <div class="legend-item"><div class="legend-swatch approval"></div> Approval Activity</div>
+  <div class="legend-item"><div class="legend-swatch decision"></div> Decision Point</div>
+  <div class="legend-item"><div class="legend-swatch system"></div> System / Automated</div>
+  <div class="legend-item"><div class="legend-swatch success"></div> Completion / Success</div>
+  <div class="legend-item"><span class="legend-icon">📧</span> Email Sent</div>
+  <div class="legend-item"><span class="legend-icon">⏰</span> Timed Reminder</div>
+  <div class="legend-item"><span class="legend-icon">🔒</span> Dependency Gate</div>
+  <div class="legend-item"><span class="legend-icon">◆</span> Decision</div>
+  <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--text-light);">Click any card for details</div>
+</div>
 
+<!-- INFO -->
+<div class="info-banner" style="margin-top:16px;">
+  <strong>📋 How to read this flowchart:</strong> Each stage below shows the activities performed, who is responsible, and what email notifications are triggered. <strong>Click</strong> any colored card to see email content examples. <strong>Hover</strong> for quick details. Dependencies are shown with 🔒 gates between stages.
+</div>
 
+<!-- WORKFLOW -->
+<div class="workflow" id="workflow">
 
-    <div class="flex-item-right">
-      <h3><span class="material-icons">
-          business_center
-        </span> Work Experience</h3>
-      <h5>Project Manager | Envision Healthcare</h5>
-      <h6><span class="material-icons">
-          date_range
-        </span>Feb 2019 – April 2020</h6>
-      <ul>
-        <li>Defined processes and tools best suited to each project. Moved between agile and waterfall approaches depending on project specifics, creating detailed project road maps, plans, and schedules</li>
-        <li>Coached stakeholders on how to effectively interact with Scrum team and product owners on backlog management</li>
-      </ul>
-      <hr>
-      <h5>Project Manager | Sixt Rent A Car</h5>
-      <h6><span class="material-icons">
-          date_range
-        </span>Dec 2017 – Aug 2018</h6>
-      <ul>
-        <li>Planned, directed, and coordinated complex projects focused on IT, infrastructure and business processes.</li>
-        <li>Worked closely with product owners to effectively manage product backlogs, plan sprints and perform acceptance testing.</li>
-        <li>Oversaw and assumed accountability for all phases of project lifecycle including user requirements, development and testing.</li>
-      </ul>
-
-      <hr>
-      <h3><span class="material-icons">
-          verified
-        </span> Certifications</h3>
-      <h5>Project Management Professional (PMP)</h5>
-      <p>Credential ID: <a href="https://cert.pmi.org/registry.aspx" target="_blank">2243595</a></p>
-      <h5>Professional Scrum Master (PSM I)</h5>
-      <p>Credential ID: <a href="https://www.scrum.org/user/406519" target="_blank">406519</a></p>
-      <h5>AWS Certified Cloud Practitioner</h5>
-      <p>Credential ID: <a href="https://www.youracclaim.com/badges/2e5830eb-48ea-453a-bacd-3c3d12203e8b/linked_in_profile" target="_blank">AWS01512934</a></p>
-      <h5>Certified SAFe Product Owner/Product Manager</h5>
-      <p>Credential ID: <a href="https://www.youracclaim.com/badges/9cff9b4d-24a8-4e29-930c-e8c9fb149850?source=linked_in_profile">71495184-0698</a></p>
-
-      <hr>
-      <h3><span class="material-icons">
-          school
-        </span> Education</h3>
-      <h5>Master of Business Administration: Entrepreneurship | Florida Atlantic University</h5>
-      <h6><span class="material-icons">
-          date_range
-        </span>April 2015</h6>
-      <hr>
-      <h5>B.S. Health Science | University of Central Florida</h5>
-      <h6><span class="material-icons">
-          date_range
-        </span>May 2012</h6>
-
-
-
-
-
-
+  <!-- ========== STAGE 1 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:var(--form-fill);">1</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">Initial Submission — Sections 1 & 2</div>
+        <div class="wf-stage-sub">Change Owner completes Change Request Details & Change Justification</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:var(--form-fill);">👤 Change Owner</span>
+        <span class="wf-badge" style="background:var(--form-fill);">📝 Sections 1–2</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-form" data-email-key="submit_form">
+          <span class="wf-card-icon">📝</span>
+          Section 1: Change Request Details
+          <span class="wf-card-label">CR ID, Title, Category, Priority, Environment</span>
+          <div class="card-tooltip"><div class="ctt">Section 1 — Change Request Details</div>Change Owner enters: CR ID (auto-generated), Title, Description, Category (Standard/Normal/Major/Emergency), Priority, Target Environment(s), Requested Implementation Date.</div>
+        </div>
+        <div class="wf-card wf-card-form" data-email-key="submit_form">
+          <span class="wf-card-icon">📋</span>
+          Section 2: Change Justification
+          <span class="wf-card-label">Business Case, Impact, Stakeholders</span>
+          <div class="card-tooltip"><div class="ctt">Section 2 — Change Justification</div>Change Owner documents: Business justification, Expected benefits, Affected stakeholders, Urgency drivers, Alignment with strategic goals.</div>
+        </div>
+        <div class="wf-card wf-card-system" data-email-key="auto_crid">
+          <span class="wf-card-icon">⚙️</span>
+          Auto-Generate CR ID
+          <span class="wf-card-label">System</span>
+          <div class="card-tooltip"><div class="ctt">Automated CR ID</div>System generates unique CR ID in format: CR-YYYY-NNNN (e.g., CR-2026-0042). Timestamp and requestor metadata recorded.</div>
+        </div>
+        <div class="wf-card wf-card-email" data-email-key="submission_confirm">
+          <span class="wf-card-icon">📧</span>
+          Submission Confirmation Email
+          <span class="wf-card-label">To: Change Owner, CCB Facilitator</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: Submission Confirmation</div><b>To:</b> Change Owner, CCB Facilitator<br><b>Trigger:</b> Sections 1–2 submitted<br><b>Content:</b> CR ID, summary, next steps, link to form</div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- GATE -->
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+  <div style="margin-left:74px;">
+    <div class="dep-callout"><span class="dep-icon">🔒</span> <strong>Dependency Gate:</strong> Sections 1–2 must be fully complete before routing to Technical Lead and Approvals</div>
+  </div>
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
 
+  <!-- ========== STAGE 2 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:var(--form-fill);">2</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">Technical Details — Sections 3, 4 & 5</div>
+        <div class="wf-stage-sub">Technical Lead completes Risk Assessment, Technical Plan & Rollback</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:#00897b;">🔧 Technical Lead</span>
+        <span class="wf-badge" style="background:#00897b;">📝 Sections 3–5</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-form" data-email-key="tech_sections">
+          <span class="wf-card-icon">⚠️</span>
+          Section 3: Risk Assessment Summary
+          <span class="wf-card-label">Business Impact, Rollback Complexity, Risk Level</span>
+          <div class="card-tooltip"><div class="ctt">Section 3 — Risk Assessment</div>Technical Lead assesses: Business Impact (1–5), Rollback Complexity (1–5), auto-calculated Overall Risk Level, Mitigation Strategies (required if Critical).</div>
+        </div>
+        <div class="wf-card wf-card-form" data-email-key="tech_sections">
+          <span class="wf-card-icon">🔧</span>
+          Section 4: Technical Implementation
+          <span class="wf-card-label">Technical Approach, Dependencies, Timeline</span>
+          <div class="card-tooltip"><div class="ctt">Section 4 — Technical Implementation</div>Technical Lead documents: Implementation approach, Technical dependencies, Step-by-step plan, Required resources, Estimated downtime.</div>
+        </div>
+        <div class="wf-card wf-card-form" data-email-key="tech_sections">
+          <span class="wf-card-icon">🔄</span>
+          Section 5: Rollback & Recovery Plan
+          <span class="wf-card-label">Rollback Procedure, Backup Details</span>
+          <div class="card-tooltip"><div class="ctt">Section 5 — Rollback & Recovery</div>Technical Lead provides: Rollback procedure, Backup and recovery details, Recovery time estimates, Communication plan for rollback.</div>
+        </div>
+        <div class="wf-card wf-card-email" data-email-key="tech_assigned">
+          <span class="wf-card-icon">📧</span>
+          Technical Assignment Email
+          <span class="wf-card-label">To: Technical Lead</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: Technical Assignment</div><b>To:</b> Technical Lead<br><b>Trigger:</b> Sections 1–2 approved for routing<br><b>Content:</b> CR details, sections to complete, deadline</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+  <div style="margin-left:74px;">
+    <div class="dep-callout"><span class="dep-icon">🔒</span> <strong>Dependency Gate:</strong> All sections (1–5) must be complete before routing to Approval Groups</div>
+  </div>
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
 
+  <!-- ========== STAGE 3 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:var(--approval-color);">3</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">Approval Workflow — Section 9 (Automated)</div>
+        <div class="wf-stage-sub">Parallel approval requests sent to Business PO, Solution Engineering, QA Lead, UAT Lead</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:var(--approval-color);">✅ Approval Groups</span>
+        <span class="wf-badge" style="background:var(--system-color);">⚙️ Automated</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-email" data-email-key="approval_request">
+          <span class="wf-card-icon">📧</span>
+          Approval Request Emails
+          <span class="wf-card-label">To: Business PO, SE, QA, UAT</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: Approval Requests</div><b>To:</b> Business Product Owner, Solution Engineering Lead, QA Lead, UAT Lead<br><b>Trigger:</b> All sections complete<br><b>Content:</b> CR summary, link to review, approve/reject buttons</div>
+        </div>
+        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+          <span class="wf-card-icon">👤</span>
+          Business PO Review
+          <span class="wf-card-label">Approve / Reject / Defer</span>
+          <div class="card-tooltip"><div class="ctt">Business PO Review</div>Business Product Owner reviews change justification, business impact, and alignment with business priorities. Can Approve, Reject, or Defer.</div>
+        </div>
+        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+          <span class="wf-card-icon">⚙️</span>
+          Solution Engineering Review
+          <span class="wf-card-label">Approve / Reject / Defer</span>
+          <div class="card-tooltip"><div class="ctt">Solution Engineering Review</div>SE Lead reviews technical approach, architecture impact, and implementation feasibility. Can Approve, Reject, or Defer.</div>
+        </div>
+        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+          <span class="wf-card-icon">🧪</span>
+          QA Lead Review
+          <span class="wf-card-label">Approve / Reject / Defer</span>
+          <div class="card-tooltip"><div class="ctt">QA Lead Review</div>QA Lead reviews test coverage, regression risk, and quality assurance plan. Can Approve, Reject, or Defer.</div>
+        </div>
+        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+          <span class="wf-card-icon">🧑‍💻</span>
+          UAT Lead Review
+          <span class="wf-card-label">Approve / Reject / Defer</span>
+          <div class="card-tooltip"><div class="ctt">UAT Lead Review</div>UAT Lead reviews user acceptance criteria, testing plan, and end-user impact. Can Approve, Reject, or Defer.</div>
+        </div>
+      </div>
+
+      <!-- Reminder emails -->
+      <div style="margin-top:14px;">
+        <div class="wf-detail-grid">
+          <div class="wf-card wf-card-email" style="opacity:.9;" data-email-key="reminder_24">
+            <span class="wf-card-icon">⏰</span>
+            24h Reminder
+            <span class="wf-card-label">To: Pending Approvers</span>
+            <div class="card-tooltip"><div class="ctt">📧 24-Hour Reminder</div><b>To:</b> Approvers who haven't responded<br><b>Trigger:</b> 24h after initial request<br><b>Tone:</b> Friendly reminder</div>
+          </div>
+          <div class="wf-card wf-card-email" style="opacity:.9;" data-email-key="reminder_48">
+            <span class="wf-card-icon">⏰</span>
+            48h Reminder
+            <span class="wf-card-label">To: Pending Approvers</span>
+            <div class="card-tooltip"><div class="ctt">📧 48-Hour Reminder</div><b>To:</b> Approvers who haven't responded<br><b>Trigger:</b> 48h after initial request<br><b>Tone:</b> Escalation warning</div>
+          </div>
+          <div class="wf-card wf-card-email" style="opacity:.85;" data-email-key="reminder_72">
+            <span class="wf-card-icon">🚨</span>
+            72h Escalation
+            <span class="wf-card-label">To: Pending Approvers + CCB Facilitator</span>
+            <div class="card-tooltip"><div class="ctt">📧 72-Hour Escalation</div><b>To:</b> Pending Approvers + CCB Facilitator<br><b>Trigger:</b> 72h with no response<br><b>Tone:</b> Urgent — escalated to CCB Facilitator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+  <div style="margin-left:74px;">
+    <div class="dep-callout"><span class="dep-icon">🔒</span> <strong>Dependency Gate:</strong> ALL approvals must be received before scheduling CCB meeting</div>
+  </div>
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+
+  <!-- ========== STAGE 4 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:var(--decision-color);">4</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">CCB Meeting & Decision</div>
+        <div class="wf-stage-sub">CCB Facilitator schedules meeting, board reviews and decides</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:var(--decision-color);">🏛️ CCB Facilitator</span>
+        <span class="wf-badge" style="background:var(--system-color);">⚙️ Automated Agenda</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-email" data-email-key="ccb_agenda">
+          <span class="wf-card-icon">📧</span>
+          CCB Meeting Agenda Email
+          <span class="wf-card-label">T-48 hours • To: All CCB Members</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: CCB Agenda</div><b>To:</b> All CCB Members<br><b>Trigger:</b> 48 hours before scheduled CCB meeting<br><b>Content:</b> Meeting agenda, CRs to review, supporting docs, dial-in details</div>
+        </div>
+        <div class="wf-card wf-card-milestone" data-email-key="ccb_meeting">
+          <span class="wf-card-icon">🏛️</span>
+          CCB Meeting
+          <span class="wf-card-label">Review all change requests</span>
+          <div class="card-tooltip"><div class="ctt">CCB Meeting</div>Change Control Board convenes to review change requests. Members discuss risk, impact, resource requirements. Each CR receives a formal decision.</div>
+        </div>
+        <div class="wf-card wf-card-decision" data-email-key="ccb_decision">
+          <span class="wf-card-icon">◆</span>
+          CCB Decision
+          <span class="wf-card-label">Approved / Rejected / Deferred</span>
+          <div class="card-tooltip"><div class="ctt">CCB Decision Point</div>Board votes on each CR:<br>✅ <b>Approved</b> — proceed to implementation<br>❌ <b>Rejected</b> — returned with rationale<br>⏸️ <b>Deferred</b> — postponed with conditions</div>
+        </div>
+        <div class="wf-card wf-card-email" data-email-key="ccb_decision_email">
+          <span class="wf-card-icon">📧</span>
+          CCB Decision Notification
+          <span class="wf-card-label">To: Change Owner, Stakeholders</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: CCB Decision</div><b>To:</b> Change Owner, All Stakeholders<br><b>Trigger:</b> Decision recorded<br><b>Content:</b> Decision (Approved/Rejected/Deferred), conditions, next steps</div>
+        </div>
+      </div>
+
+      <!-- Decision Branches -->
+      <div class="wf-branches" style="margin-top:16px; margin-left:0;">
+        <div class="wf-branch approved">
+          <div class="wf-branch-title" style="color:var(--success);">✅ Approved</div>
+          <div class="wf-branch-text">Proceed to Implementation Planning (Stage 5). Change Owner and Technical Lead coordinate scheduling.</div>
+        </div>
+        <div class="wf-branch rejected">
+          <div class="wf-branch-title" style="color:var(--danger);">❌ Rejected</div>
+          <div class="wf-branch-text">Returned to Change Owner with rationale. May resubmit after addressing concerns. Status → Closed-Rejected.</div>
+        </div>
+        <div class="wf-branch deferred">
+          <div class="wf-branch-title" style="color:var(--warning);">⏸️ Deferred</div>
+          <div class="wf-branch-text">Postponed with conditions. Reviewed again at next CCB meeting. Change Owner notified of deferral reasons.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+  <div style="margin-left:74px;">
+    <div class="dep-callout"><span class="dep-icon">🔒</span> <strong>Dependency Gate:</strong> CCB Approval required before proceeding to Implementation</div>
+  </div>
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+
+  <!-- ========== STAGE 5 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:var(--success);">5</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">Implementation — Sections 6 & 7</div>
+        <div class="wf-stage-sub">Change Owner + Technical Lead coordinate implementation, QA testing & UAT sign-off</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:var(--form-fill);">👤 Change Owner</span>
+        <span class="wf-badge" style="background:#00897b;">🔧 Technical Lead</span>
+        <span class="wf-badge" style="background:var(--form-fill);">📝 Sections 6–7</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-email" data-email-key="impl_t7">
+          <span class="wf-card-icon">📧</span>
+          T-7 Day Implementation Notice
+          <span class="wf-card-label">To: All Stakeholders</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: T-7 Day Notice</div><b>To:</b> All Stakeholders<br><b>Trigger:</b> 7 days before implementation<br><b>Content:</b> Upcoming change details, timeline, expected impact</div>
+        </div>
+        <div class="wf-card wf-card-email" data-email-key="impl_t3">
+          <span class="wf-card-icon">📧</span>
+          T-3 Day Reminder
+          <span class="wf-card-label">To: Technical Team, Change Owner</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: T-3 Day Reminder</div><b>To:</b> Technical Team, Change Owner<br><b>Trigger:</b> 3 days before implementation<br><b>Content:</b> Final preparations checklist, go/no-go confirmation</div>
+        </div>
+        <div class="wf-card wf-card-email" data-email-key="impl_t1">
+          <span class="wf-card-icon">📧</span>
+          T-1 Day Final Notice
+          <span class="wf-card-label">To: All Stakeholders</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: T-1 Day Final Notice</div><b>To:</b> All Stakeholders<br><b>Trigger:</b> 1 day before implementation<br><b>Content:</b> Final notice, maintenance window, rollback readiness</div>
+        </div>
+        <div class="wf-card wf-card-form" data-email-key="impl_section6">
+          <span class="wf-card-icon">🚀</span>
+          Section 6: Implementation Execution
+          <span class="wf-card-label">Implementation details, actual dates</span>
+          <div class="card-tooltip"><div class="ctt">Section 6 — Implementation</div>Change Owner + Technical Lead record: Actual implementation date/time, Steps executed, Issues encountered, Stakeholders notified.</div>
+        </div>
+        <div class="wf-card wf-card-form" data-email-key="impl_section7">
+          <span class="wf-card-icon">🧪</span>
+          Section 7: QA & Testing Sign-Off
+          <span class="wf-card-label">Product Owner, QA, SE status</span>
+          <div class="card-tooltip"><div class="ctt">Section 7 — QA Approval</div>Testing sign-offs recorded: Product Owner Testing Status, QA Testing Status, Solution Engineering Testing Status. All must pass before closure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+  <div style="margin-left:74px;">
+    <div class="dep-callout"><span class="dep-icon">🔒</span> <strong>Dependency Gate:</strong> Implementation must be complete and verified before PIR</div>
+  </div>
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+
+  <!-- ========== STAGE 6 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:#37474f;">6</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">Post-Implementation Review — Section 8</div>
+        <div class="wf-stage-sub">Change Owner completes PIR (mandatory for Normal/Major changes)</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:var(--form-fill);">👤 Change Owner</span>
+        <span class="wf-badge" style="background:#00897b;">🔧 Technical Lead</span>
+        <span class="wf-badge" style="background:var(--form-fill);">📝 Section 8</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-email" data-email-key="pir_reminder">
+          <span class="wf-card-icon">📧</span>
+          PIR Reminder Email
+          <span class="wf-card-label">To: Change Owner</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: PIR Reminder</div><b>To:</b> Change Owner<br><b>Trigger:</b> Post-implementation (configurable: 3–7 days after)<br><b>Content:</b> Reminder to complete PIR section, link to form</div>
+        </div>
+        <div class="wf-card wf-card-form" data-email-key="pir_section8">
+          <span class="wf-card-icon">📊</span>
+          Section 8: PIR Assessment
+          <span class="wf-card-label">Outcome, Lessons Learned, Follow-up</span>
+          <div class="card-tooltip"><div class="ctt">Section 8 — PIR Plan</div>Change Owner + Technical Lead complete: Implementation outcome assessment, Lessons learned, Follow-up actions required, Recommendations for future changes. Mandatory for Normal/Major changes.</div>
+        </div>
+        <div class="wf-card wf-card-system" data-email-key="pir_auto">
+          <span class="wf-card-icon">⚙️</span>
+          PIR Tracking
+          <span class="wf-card-label">System monitors completion</span>
+          <div class="card-tooltip"><div class="ctt">Automated PIR Tracking</div>System tracks PIR completion status. Sends follow-up reminders if not completed within SLA. Reports to CCB Facilitator for overdue PIRs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+  <div style="margin-left:74px;">
+    <div class="dep-callout"><span class="dep-icon">🔒</span> <strong>Dependency Gate:</strong> PIR must be complete before formal closure</div>
+  </div>
+  <div class="wf-connector"><span class="wf-arr">⬇️</span></div>
+
+  <!-- ========== STAGE 7 ========== -->
+  <div class="wf-stage">
+    <div class="wf-stage-head">
+      <div class="wf-stage-num" style="background:var(--success);">7</div>
+      <div class="wf-stage-info">
+        <div class="wf-stage-title">Closure & Notifications</div>
+        <div class="wf-stage-sub">Change Request formally closed; all stakeholders notified</div>
+      </div>
+      <div class="wf-stage-badges">
+        <span class="wf-badge" style="background:var(--system-color);">⚙️ Automated</span>
+        <span class="wf-badge" style="background:var(--success);">✅ Complete</span>
+      </div>
+    </div>
+    <div class="wf-detail">
+      <div class="wf-detail-grid">
+        <div class="wf-card wf-card-system" data-email-key="closure_auto">
+          <span class="wf-card-icon">⚙️</span>
+          Status → Closed
+          <span class="wf-card-label">System updates register</span>
+          <div class="card-tooltip"><div class="ctt">Automated Closure</div>System updates CR status to "Closed-Successful" or "Closed-Failed". Updates Change Request Register. Records final metrics (total time, approval time, implementation time).</div>
+        </div>
+        <div class="wf-card wf-card-email" data-email-key="closure_notification">
+          <span class="wf-card-icon">📧</span>
+          Closure Notification Email
+          <span class="wf-card-label">To: All Stakeholders</span>
+          <div class="card-tooltip"><div class="ctt">📧 Email: Closure Notification</div><b>To:</b> Change Owner, Technical Lead, Approvers, CCB Facilitator, All Stakeholders<br><b>Trigger:</b> PIR complete & CR closed<br><b>Content:</b> Final status, outcome summary, PIR findings, metrics</div>
+        </div>
+        <div class="wf-card wf-card-success" data-email-key="closure_done">
+          <span class="wf-card-icon">🏁</span>
+          Change Request Complete
+          <span class="wf-card-label">Archived in Register</span>
+          <div class="card-tooltip"><div class="ctt">Process Complete</div>Change Request is fully closed. All documentation archived. Metrics captured for CCB Dashboard reporting. Lessons learned catalogued for future reference.</div>
+        </div>
+        <div class="wf-card wf-card-system" data-email-key="metrics_update">
+          <span class="wf-card-icon">📈</span>
+          Dashboard Metrics Updated
+          <span class="wf-card-label">Automated reporting</span>
+          <div class="card-tooltip"><div class="ctt">Metrics Update</div>CCB Metrics Dashboard automatically updated with: Completion metrics, Time-to-approval, Success/failure rates, Risk distribution changes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Summary Table -->
+<div style="padding:20px 30px;">
+  <div style="background:var(--card-bg); border-radius:12px; box-shadow:var(--shadow); overflow:hidden;">
+    <div style="background:var(--primary); color:#fff; padding:14px 20px; font-weight:700; font-size:14px;">📋 Section Responsibility Summary</div>
+    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+      <thead>
+        <tr style="background:#f0f4f8;">
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border); font-weight:700;">Section</th>
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border); font-weight:700;">Responsible Role</th>
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border); font-weight:700;">Content</th>
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border); font-weight:700;">Stage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 1</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">👤 Change Owner</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Change Request Details</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Initial Submission</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 2</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">👤 Change Owner</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Change Justification</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Initial Submission</td></tr>
+        <tr><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 3</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">🔧 Technical Lead</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Risk Assessment Summary</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Technical Details</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 4</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">🔧 Technical Lead</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Technical Implementation</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Technical Details</td></tr>
+        <tr><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 5</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">🔧 Technical Lead</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Rollback & Recovery Plan</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Technical Details</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 6</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">👤 Change Owner + 🔧 Technical Lead</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Implementation Execution</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Implementation</td></tr>
+        <tr><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 7</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">👤 Change Owner + 🔧 Technical Lead</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">QA & Testing Sign-Off</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Implementation</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:10px 16px; border-bottom:1px solid var(--border);"><strong>Section 8</strong></td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">👤 Change Owner + 🔧 Technical Lead</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">Post-Implementation Review</td><td style="padding:10px 16px; border-bottom:1px solid var(--border);">PIR</td></tr>
+        <tr><td style="padding:10px 16px;"><strong>Section 9</strong></td><td style="padding:10px 16px;">⚙️ Automated (System)</td><td style="padding:10px 16px;">Approval Signatures</td><td style="padding:10px 16px;">Approvals</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Email Notification Summary -->
+<div style="padding:0 30px 30px;">
+  <div style="background:var(--card-bg); border-radius:12px; box-shadow:var(--shadow); overflow:hidden;">
+    <div style="background:var(--email-color); color:#fff; padding:14px 20px; font-weight:700; font-size:14px;">📧 Email Notification Summary</div>
+    <table style="width:100%; border-collapse:collapse; font-size:12px;">
+      <thead>
+        <tr style="background:#fef5e7;">
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border);">Notification</th>
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border);">Trigger</th>
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border);">Recipients</th>
+          <th style="padding:10px 16px; text-align:left; border-bottom:2px solid var(--border);">Stage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Submission Confirmation</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Sections 1–2 submitted</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Change Owner, CCB Facilitator</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">1 — Submission</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Technical Assignment</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Sections 1–2 complete</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Technical Lead</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">2 — Technical</td></tr>
+        <tr><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Approval Requests</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">All sections (1–5) complete</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Business PO, SE, QA Lead, UAT Lead</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">3 — Approvals</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 16px; border-bottom:1px solid var(--border);">24h Approval Reminder</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">24 hours, no response</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Pending Approvers</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">3 — Approvals</td></tr>
+        <tr><td style="padding:8px 16px; border-bottom:1px solid var(--border);">48h Approval Reminder</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">48 hours, no response</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Pending Approvers</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">3 — Approvals</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 16px; border-bottom:1px solid var(--border);">72h Escalation</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">72 hours, no response</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Pending Approvers + CCB Facilitator</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">3 — Approvals</td></tr>
+        <tr><td style="padding:8px 16px; border-bottom:1px solid var(--border);">CCB Meeting Agenda</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">T-48 hours before CCB</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">All CCB Members</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">4 — CCB Meeting</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 16px; border-bottom:1px solid var(--border);">CCB Decision</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Decision recorded</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Change Owner, All Stakeholders</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">4 — CCB Meeting</td></tr>
+        <tr><td style="padding:8px 16px; border-bottom:1px solid var(--border);">T-7 Implementation Notice</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">7 days before implementation</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">All Stakeholders</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">5 — Implementation</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 16px; border-bottom:1px solid var(--border);">T-3 Preparation Reminder</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">3 days before implementation</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Technical Team, Change Owner</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">5 — Implementation</td></tr>
+        <tr><td style="padding:8px 16px; border-bottom:1px solid var(--border);">T-1 Final Notice</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">1 day before implementation</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">All Stakeholders</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">5 — Implementation</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 16px; border-bottom:1px solid var(--border);">PIR Reminder</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Post-implementation (3–7 days)</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">Change Owner</td><td style="padding:8px 16px; border-bottom:1px solid var(--border);">6 — PIR</td></tr>
+        <tr><td style="padding:8px 16px;">Closure Notification</td><td style="padding:8px 16px;">PIR complete, CR closed</td><td style="padding:8px 16px;">All Stakeholders</td><td style="padding:8px 16px;">7 — Closure</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="modal-overlay" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">📧 Email Example</h3>
+      <button type="button" class="modal-close" aria-label="Close" data-action="close-email">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div class="modal-overlay" id="helpModal" role="dialog" aria-modal="true" aria-label="Flowchart Guide">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>❓ Flowchart Guide</h3>
+      <button type="button" class="modal-close" aria-label="Close" data-action="close-help">&times;</button>
+    </div>
+    <div class="modal-body" style="font-size:13px;line-height:1.7;">
+      <h4 style="color:var(--primary);margin-bottom:8px;">How to Use This Flowchart</h4>
+      <ul style="padding-left:18px;">
+        <li><strong>Stages 1–7</strong> show the complete lifecycle of a Change Request from submission to closure.</li>
+        <li><strong>🔒 Dependency Gates</strong> between stages show what must be completed before proceeding.</li>
+        <li><strong>Hover</strong> over any colored card to see a quick tooltip with details.</li>
+        <li><strong>Click</strong> any card to see a full email content example (for email cards) or detailed information.</li>
+      </ul>
+      <h4 style="color:var(--primary);margin:14px 0 8px;">Color Legend</h4>
+      <ul style="padding-left:18px;">
+        <li><span style="color:var(--form-fill);font-weight:700;">■ Blue</span> — Form completion activities</li>
+        <li><span style="color:var(--email-color);font-weight:700;">■ Orange</span> — Email notifications</li>
+        <li><span style="color:var(--approval-color);font-weight:700;">■ Purple</span> — Approval activities</li>
+        <li><span style="color:var(--decision-color);font-weight:700;">■ Red</span> — Decision points</li>
+        <li><span style="color:var(--system-color);font-weight:700;">■ Grey</span> — System/automated actions</li>
+        <li><span style="color:var(--success);font-weight:700;">■ Green</span> — Success/completion</li>
+      </ul>
+      <h4 style="color:var(--primary);margin:14px 0 8px;">Role Assignments</h4>
+      <ul style="padding-left:18px;">
+        <li><strong>👤 Change Owner</strong> — Sections 1, 2, 6, 7, 8</li>
+        <li><strong>🔧 Technical Lead</strong> — Sections 3, 4, 5 (+ assists 6, 7, 8)</li>
+        <li><strong>✅ Approval Groups</strong> — Section 9 (Business PO, SE, QA, UAT)</li>
+        <li><strong>🏛️ CCB Facilitator</strong> — Oversees process, chairs CCB meetings</li>
+        <li><strong>⚙️ System</strong> — Automated emails, reminders, tracking</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Moss Energy — Change Control Board Process | Confidential | Document Version 1.0
+</footer>
+
+<script src="js/app.js" defer></script>
 </body>
-
 </html>
