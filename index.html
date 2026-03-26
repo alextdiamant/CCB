@@ -4,22 +4,243 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Change Request Form Workflow — Moss Energy</title>
-<link rel="stylesheet" href="css/styles.css">
+<style>
+:root {
+  --primary: #003366;
+  --primary-light: #004d99;
+  --primary-dark: #002244;
+  --accent: #00a86b;
+  --accent-light: #00c97b;
+  --form-fill: #1a73e8;
+  --email-color: #e67e22;
+  --approval-color: #8e44ad;
+  --decision-color: #c0392b;
+  --system-color: #607d8b;
+  --success: #27ae60;
+  --warning: #f39c12;
+  --danger: #e74c3c;
+  --bg: #f4f6f9;
+  --card-bg: #ffffff;
+  --text: #2c3e50;
+  --text-light: #7f8c8d;
+  --border: #dce1e8;
+  --shadow: 0 2px 12px rgba(0,51,102,.12);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
 
-<meta name="description" content="Interactive Change Request workflow flowchart for Moss Energy Change Control Board (CCB).">
-<meta name="theme-color" content="#003366">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="assets/favicon.ico" sizes="any">
-<link rel="manifest" href="site.webmanifest">
-<meta property="og:title" content="Change Request Form — Workflow Flowchart">
-<meta property="og:description" content="Interactive workflow from submission to closure for CCB change requests.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+/* Header */
+.header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color:#fff; padding:24px 40px; display:flex; align-items:center; justify-content:space-between; box-shadow: 0 3px 12px rgba(0,0,0,.2); position:sticky; top:0; z-index:100; }
+.header h1 { font-size:22px; font-weight:700; letter-spacing:.3px; }
+.header .subtitle { font-size:13px; opacity:.8; margin-top:2px; }
+.header .logo { display:flex; align-items:center; gap:12px; }
+.header .logo-icon { width:40px; height:40px; background:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--primary); font-size:16px; }
+.header-right { display:flex; gap:12px; align-items:center; }
+.btn { padding:8px 18px; border:none; border-radius:6px; cursor:pointer; font-size:13px; font-weight:600; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+.btn-outline { background:transparent; border:1.5px solid rgba(255,255,255,.5); color:#fff; }
+.btn-outline:hover { background:rgba(255,255,255,.15); border-color:#fff; }
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'">
+/* Legend */
+.legend-bar { background:var(--card-bg); border-bottom:1px solid var(--border); padding:14px 40px; display:flex; flex-wrap:wrap; gap:20px; align-items:center; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+.legend-bar .legend-title { font-weight:700; font-size:13px; color:var(--primary); text-transform:uppercase; letter-spacing:.5px; margin-right:8px; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text); }
+.legend-swatch { width:16px; height:16px; border-radius:4px; flex-shrink:0; }
+.legend-swatch.form { background:var(--form-fill); }
+.legend-swatch.email { background:var(--email-color); }
+.legend-swatch.approval { background:var(--approval-color); }
+.legend-swatch.decision { background:var(--decision-color); }
+.legend-swatch.system { background:var(--system-color); }
+.legend-swatch.success { background:var(--success); }
+.legend-icon { font-size:16px; }
+
+/* Swimlane Container */
+.flowchart-container { padding:30px 20px; overflow-x:auto; }
+.swimlane-wrapper { display:flex; flex-direction:column; min-width:1600px; gap:0; }
+
+/* Swimlane Row */
+.swimlane { display:flex; border-bottom:1px solid var(--border); min-height:140px; position:relative; }
+.swimlane:last-child { border-bottom:none; }
+.swimlane-label { width:180px; min-width:180px; background:var(--primary); color:#fff; padding:16px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-weight:700; font-size:13px; letter-spacing:.3px; position:sticky; left:0; z-index:10; }
+.swimlane-label .role-icon { font-size:28px; margin-bottom:6px; }
+.swimlane-label .role-sub { font-size:10px; font-weight:400; opacity:.7; margin-top:2px; }
+.swimlane-content { flex:1; display:flex; align-items:center; padding:20px 16px; gap:12px; background:var(--card-bg); position:relative; min-height:140px; }
+.swimlane:nth-child(even) .swimlane-content { background:#f8fafc; }
+
+/* Phase Headers */
+.phase-headers { display:flex; margin-bottom:0; }
+.phase-spacer { width:180px; min-width:180px; background:var(--primary-dark); }
+.phase-bar { flex:1; display:flex; }
+.phase { flex:1; text-align:center; padding:10px 8px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#fff; }
+.phase-submit { background:#1565c0; }
+.phase-review { background:#6a1b9a; }
+.phase-ccb { background:#c62828; }
+.phase-implement { background:#2e7d32; }
+.phase-close { background:#37474f; }
+
+/* Nodes */
+.node { position:relative; min-width:130px; max-width:160px; padding:12px 14px; border-radius:10px; text-align:center; font-size:11px; font-weight:600; cursor:pointer; transition:all .25s; box-shadow:0 2px 8px rgba(0,0,0,.1); flex-shrink:0; line-height:1.35; }
+.node:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,.18); z-index:20; }
+.node .node-icon { font-size:20px; display:block; margin-bottom:4px; }
+
+.node-form { background:linear-gradient(135deg, #1a73e8, #1565c0); color:#fff; border:2px solid #1565c0; }
+.node-email { background:linear-gradient(135deg, #e67e22, #d35400); color:#fff; border:2px solid #d35400; }
+.node-approval { background:linear-gradient(135deg, #8e44ad, #7b1fa2); color:#fff; border:2px solid #7b1fa2; }
+.node-decision { background:linear-gradient(135deg, #e74c3c, #c0392b); color:#fff; border:2px solid #c0392b; clip-path:polygon(12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0% 50%); padding:16px 24px; min-width:150px; }
+.node-system { background:linear-gradient(135deg, #607d8b, #455a64); color:#fff; border:2px solid #455a64; border-radius:50%; width:110px; height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; }
+.node-success { background:linear-gradient(135deg, #27ae60, #219a52); color:#fff; border:2px solid #219a52; }
+.node-milestone { background:linear-gradient(135deg, var(--primary), var(--primary-light)); color:#fff; border:2px solid var(--primary); border-radius:8px; }
+
+/* Connector arrows */
+.arrow { display:flex; align-items:center; flex-shrink:0; color:var(--text-light); font-size:20px; padding:0 2px; }
+.arrow-down { writing-mode:vertical-rl; transform:rotate(0deg); }
+
+/* Tooltip */
+.tooltip-box { display:none; position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%); background:#1a1a2e; color:#fff; padding:14px 18px; border-radius:10px; font-size:12px; font-weight:400; line-height:1.55; width:300px; z-index:1000; box-shadow:0 8px 30px rgba(0,0,0,.3); pointer-events:none; }
+.tooltip-box::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:8px solid transparent; border-top-color:#1a1a2e; }
+.tooltip-box .tt-title { font-weight:700; font-size:13px; margin-bottom:6px; color:#64b5f6; }
+.tooltip-box .tt-section { margin-top:6px; }
+.tooltip-box .tt-label { font-weight:600; color:#ffb74d; font-size:11px; text-transform:uppercase; letter-spacing:.5px; }
+.node:hover .tooltip-box { display:block; }
+
+/* Email Modal */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,20,40,.6); z-index:500; backdrop-filter:blur(3px); align-items:center; justify-content:center; }
+.modal-overlay.active { display:flex; }
+.modal { background:#fff; border-radius:14px; width:600px; max-width:92vw; max-height:85vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.3); }
+.modal-header { background:var(--primary); color:#fff; padding:20px 24px; border-radius:14px 14px 0 0; display:flex; align-items:center; justify-content:space-between; }
+.modal-header h3 { font-size:16px; }
+.modal-close { background:none; border:none; color:#fff; font-size:24px; cursor:pointer; opacity:.8; }
+.modal-close:hover { opacity:1; }
+.modal-body { padding:24px; }
+.email-field { margin-bottom:14px; }
+.email-field label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text-light); margin-bottom:4px; }
+.email-field .value { background:#f0f4f8; padding:10px 14px; border-radius:8px; font-size:13px; line-height:1.5; border-left:3px solid var(--primary); }
+.email-field .value.body-text { white-space:pre-line; }
+
+/* Dependency lines */
+.dep-note { position:absolute; font-size:10px; color:var(--danger); font-weight:700; background:#fff3f3; padding:2px 8px; border-radius:4px; border:1px solid #fdd; }
+
+/* Print */
+@media print {
+  .header { position:static; }
+  .legend-bar { break-inside:avoid; }
+  .btn { display:none; }
+  .modal-overlay { display:none !important; }
+}
+
+/* Responsive */
+@media (max-width:900px) {
+  .header { padding:16px 20px; flex-direction:column; gap:10px; }
+  .legend-bar { padding:12px 16px; }
+  .flowchart-container { padding:16px 8px; }
+}
+
+/* Section badge */
+.section-badge { display:inline-block; background:rgba(255,255,255,.25); padding:2px 8px; border-radius:10px; font-size:9px; font-weight:700; margin-top:4px; letter-spacing:.5px; }
+
+/* Vertical flow connector */
+.vflow { display:flex; flex-direction:column; align-items:center; gap:0; }
+.vflow .varrow { font-size:18px; color:var(--text-light); line-height:1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { height:8px; width:8px; }
+::-webkit-scrollbar-track { background:#e8ecf1; border-radius:4px; }
+::-webkit-scrollbar-thumb { background:#b0bec5; border-radius:4px; }
+::-webkit-scrollbar-thumb:hover { background:#90a4ae; }
+
+/* Info Banner */
+.info-banner { background:linear-gradient(90deg, #e3f2fd, #f0f4f8); border-left:4px solid var(--primary); margin:0 40px 0; padding:12px 20px; border-radius:0 8px 8px 0; font-size:12px; color:var(--text); line-height:1.5; }
+.info-banner strong { color:var(--primary); }
+
+/* Full-width swimlane approach with flex nodes */
+.flow-section { margin:20px; }
+.flow-section h2 { font-size:16px; color:var(--primary); margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--primary); display:flex; align-items:center; gap:8px; }
+.flow-section h2 .phase-num { background:var(--primary); color:#fff; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; }
+
+.flow-row { display:flex; align-items:stretch; gap:0; margin-bottom:2px; }
+.flow-lane-label { width:160px; min-width:160px; padding:12px; background:var(--primary); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; text-align:center; gap:6px; border-right:2px solid var(--primary-dark); }
+.flow-lane-label .lane-icon { font-size:18px; }
+.flow-lane-body { flex:1; display:flex; align-items:center; padding:14px 20px; gap:14px; flex-wrap:wrap; background:var(--card-bg); border-bottom:1px solid var(--border); min-height:80px; }
+.flow-row:nth-child(even) .flow-lane-body { background:#f8fafc; }
+
+/* Phase divider */
+.phase-divider { display:flex; align-items:center; margin:28px 0 18px; padding:0 20px; }
+.phase-divider .pd-line { flex:1; height:2px; background:linear-gradient(90deg, transparent, var(--border), transparent); }
+.phase-divider .pd-label { padding:6px 20px; background:var(--primary); color:#fff; border-radius:20px; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; }
+
+/* Big flow section with vertical layout */
+.main-flow { padding:20px 30px; min-width:1200px; }
+
+.stage { margin-bottom:8px; }
+.stage-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.stage-num { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; color:#fff; }
+.stage-title { font-size:15px; font-weight:700; color:var(--text); }
+.stage-desc { font-size:11px; color:var(--text-light); }
+
+.stage-grid { display:flex; gap:0; align-items:stretch; margin-left:18px; border-left:3px solid var(--border); padding-left:24px; }
+
+.lane-col { display:flex; flex-direction:column; gap:10px; min-width:0; flex:1; }
+.lane-col-header { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--text-light); padding:4px 12px; background:#eef2f7; border-radius:6px; text-align:center; margin-bottom:4px; }
+
+/* Horizontal flow */
+.hflow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:8px 0; }
+.hflow .arrow { font-size:18px; color:#b0bec5; }
+
+/* Stage connector */
+.stage-connector { display:flex; justify-content:center; padding:4px 0; margin-left:18px; }
+.stage-connector .sc-arrow { font-size:24px; color:var(--primary); }
+
+/* Final approach: a single continuous vertical flow */
+.workflow { padding:24px 30px; }
+.wf-stage { margin-bottom:6px; position:relative; }
+.wf-stage-head { display:flex; align-items:center; gap:14px; cursor:pointer; padding:14px 20px; background:var(--card-bg); border-radius:12px; box-shadow:var(--shadow); border-left:4px solid var(--primary); transition:all .2s; }
+.wf-stage-head:hover { box-shadow:0 4px 20px rgba(0,51,102,.15); }
+.wf-stage-num { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px; color:#fff; flex-shrink:0; }
+.wf-stage-info { flex:1; }
+.wf-stage-title { font-size:15px; font-weight:700; color:var(--primary); }
+.wf-stage-sub { font-size:11px; color:var(--text-light); margin-top:2px; }
+.wf-stage-badges { display:flex; gap:6px; flex-wrap:wrap; }
+.wf-badge { padding:3px 10px; border-radius:12px; font-size:10px; font-weight:700; color:#fff; }
+
+.wf-detail { padding:16px 20px 16px 74px; }
+.wf-detail-grid { display:flex; gap:12px; flex-wrap:wrap; }
+
+.wf-card { padding:12px 16px; border-radius:10px; font-size:12px; font-weight:600; color:#fff; cursor:pointer; transition:all .2s; min-width:140px; max-width:220px; box-shadow:0 2px 8px rgba(0,0,0,.1); position:relative; line-height:1.4; }
+.wf-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.18); }
+.wf-card .wf-card-icon { font-size:18px; display:block; margin-bottom:4px; }
+.wf-card .wf-card-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; opacity:.8; margin-top:4px; }
+.wf-card-form { background:linear-gradient(135deg, #1a73e8, #1565c0); }
+.wf-card-email { background:linear-gradient(135deg, #e67e22, #d35400); }
+.wf-card-approval { background:linear-gradient(135deg, #8e44ad, #7b1fa2); }
+.wf-card-decision { background:linear-gradient(135deg, #e74c3c, #c0392b); }
+.wf-card-system { background:linear-gradient(135deg, #607d8b, #455a64); }
+.wf-card-success { background:linear-gradient(135deg, #27ae60, #219a52); }
+.wf-card-milestone { background:linear-gradient(135deg, var(--primary), var(--primary-light)); }
+
+.wf-connector { display:flex; align-items:center; justify-content:center; padding:2px 0; }
+.wf-connector .wf-arr { font-size:22px; color:var(--primary); opacity:.6; }
+
+/* Dependency callout */
+.dep-callout { background:#fff8e1; border:1px solid #ffe082; border-radius:8px; padding:8px 14px; font-size:11px; color:#5d4037; margin:4px 0; display:inline-flex; align-items:center; gap:6px; }
+.dep-callout .dep-icon { font-size:14px; }
+
+/* Decision branch */
+.wf-branches { display:flex; gap:16px; margin:8px 0 8px 74px; }
+.wf-branch { flex:1; max-width:260px; padding:14px; border-radius:10px; border:2px dashed; }
+.wf-branch.approved { border-color:var(--success); background:#f0faf4; }
+.wf-branch.rejected { border-color:var(--danger); background:#fef5f5; }
+.wf-branch.deferred { border-color:var(--warning); background:#fffbf0; }
+.wf-branch-title { font-size:12px; font-weight:800; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.wf-branch-text { font-size:11px; color:var(--text); line-height:1.5; }
+
+/* Email tooltip on cards */
+.wf-card .card-tooltip { display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%); background:#1a1a2e; color:#fff; padding:12px 16px; border-radius:10px; font-size:11px; font-weight:400; line-height:1.5; width:280px; z-index:1000; box-shadow:0 8px 30px rgba(0,0,0,.3); }
+.wf-card .card-tooltip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:7px solid transparent; border-top-color:#1a1a2e; }
+.wf-card .card-tooltip .ctt { font-weight:700; color:#64b5f6; margin-bottom:4px; }
+.wf-card:hover .card-tooltip { display:block; }
+
+footer { background:var(--primary-dark); color:#fff; text-align:center; padding:16px; font-size:11px; opacity:.8; }
+</style>
 </head>
-
-  
 <body>
 
 <!-- HEADER -->
@@ -32,8 +253,8 @@
     </div>
   </div>
   <div class="header-right">
-    <button class="btn btn-outline" data-action="print">🖨️ Print</button>
-    <button class="btn btn-outline" data-action="open-help">❓ Help</button>
+    <button class="btn btn-outline" onclick="window.print()">🖨️ Print</button>
+    <button class="btn btn-outline" onclick="document.getElementById('helpModal').classList.add('active')">❓ Help</button>
   </div>
 </div>
 
@@ -76,25 +297,25 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-form" data-email-key="submit_form">
+        <div class="wf-card wf-card-form" onclick="showEmail('submit_form')">
           <span class="wf-card-icon">📝</span>
           Section 1: Change Request Details
           <span class="wf-card-label">CR ID, Title, Category, Priority, Environment</span>
           <div class="card-tooltip"><div class="ctt">Section 1 — Change Request Details</div>Change Owner enters: CR ID (auto-generated), Title, Description, Category (Standard/Normal/Major/Emergency), Priority, Target Environment(s), Requested Implementation Date.</div>
         </div>
-        <div class="wf-card wf-card-form" data-email-key="submit_form">
+        <div class="wf-card wf-card-form" onclick="showEmail('submit_form')">
           <span class="wf-card-icon">📋</span>
           Section 2: Change Justification
           <span class="wf-card-label">Business Case, Impact, Stakeholders</span>
           <div class="card-tooltip"><div class="ctt">Section 2 — Change Justification</div>Change Owner documents: Business justification, Expected benefits, Affected stakeholders, Urgency drivers, Alignment with strategic goals.</div>
         </div>
-        <div class="wf-card wf-card-system" data-email-key="auto_crid">
+        <div class="wf-card wf-card-system" onclick="showEmail('auto_crid')">
           <span class="wf-card-icon">⚙️</span>
           Auto-Generate CR ID
           <span class="wf-card-label">System</span>
           <div class="card-tooltip"><div class="ctt">Automated CR ID</div>System generates unique CR ID in format: CR-YYYY-NNNN (e.g., CR-2026-0042). Timestamp and requestor metadata recorded.</div>
         </div>
-        <div class="wf-card wf-card-email" data-email-key="submission_confirm">
+        <div class="wf-card wf-card-email" onclick="showEmail('submission_confirm')">
           <span class="wf-card-icon">📧</span>
           Submission Confirmation Email
           <span class="wf-card-label">To: Change Owner, CCB Facilitator</span>
@@ -126,25 +347,25 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-form" data-email-key="tech_sections">
+        <div class="wf-card wf-card-form" onclick="showEmail('tech_sections')">
           <span class="wf-card-icon">⚠️</span>
           Section 3: Risk Assessment Summary
           <span class="wf-card-label">Business Impact, Rollback Complexity, Risk Level</span>
           <div class="card-tooltip"><div class="ctt">Section 3 — Risk Assessment</div>Technical Lead assesses: Business Impact (1–5), Rollback Complexity (1–5), auto-calculated Overall Risk Level, Mitigation Strategies (required if Critical).</div>
         </div>
-        <div class="wf-card wf-card-form" data-email-key="tech_sections">
+        <div class="wf-card wf-card-form" onclick="showEmail('tech_sections')">
           <span class="wf-card-icon">🔧</span>
           Section 4: Technical Implementation
           <span class="wf-card-label">Technical Approach, Dependencies, Timeline</span>
           <div class="card-tooltip"><div class="ctt">Section 4 — Technical Implementation</div>Technical Lead documents: Implementation approach, Technical dependencies, Step-by-step plan, Required resources, Estimated downtime.</div>
         </div>
-        <div class="wf-card wf-card-form" data-email-key="tech_sections">
+        <div class="wf-card wf-card-form" onclick="showEmail('tech_sections')">
           <span class="wf-card-icon">🔄</span>
           Section 5: Rollback & Recovery Plan
           <span class="wf-card-label">Rollback Procedure, Backup Details</span>
           <div class="card-tooltip"><div class="ctt">Section 5 — Rollback & Recovery</div>Technical Lead provides: Rollback procedure, Backup and recovery details, Recovery time estimates, Communication plan for rollback.</div>
         </div>
-        <div class="wf-card wf-card-email" data-email-key="tech_assigned">
+        <div class="wf-card wf-card-email" onclick="showEmail('tech_assigned')">
           <span class="wf-card-icon">📧</span>
           Technical Assignment Email
           <span class="wf-card-label">To: Technical Lead</span>
@@ -175,31 +396,31 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-email" data-email-key="approval_request">
+        <div class="wf-card wf-card-email" onclick="showEmail('approval_request')">
           <span class="wf-card-icon">📧</span>
           Approval Request Emails
           <span class="wf-card-label">To: Business PO, SE, QA, UAT</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: Approval Requests</div><b>To:</b> Business Product Owner, Solution Engineering Lead, QA Lead, UAT Lead<br><b>Trigger:</b> All sections complete<br><b>Content:</b> CR summary, link to review, approve/reject buttons</div>
         </div>
-        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+        <div class="wf-card wf-card-approval" onclick="showEmail('approval_review')">
           <span class="wf-card-icon">👤</span>
           Business PO Review
           <span class="wf-card-label">Approve / Reject / Defer</span>
           <div class="card-tooltip"><div class="ctt">Business PO Review</div>Business Product Owner reviews change justification, business impact, and alignment with business priorities. Can Approve, Reject, or Defer.</div>
         </div>
-        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+        <div class="wf-card wf-card-approval" onclick="showEmail('approval_review')">
           <span class="wf-card-icon">⚙️</span>
           Solution Engineering Review
           <span class="wf-card-label">Approve / Reject / Defer</span>
           <div class="card-tooltip"><div class="ctt">Solution Engineering Review</div>SE Lead reviews technical approach, architecture impact, and implementation feasibility. Can Approve, Reject, or Defer.</div>
         </div>
-        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+        <div class="wf-card wf-card-approval" onclick="showEmail('approval_review')">
           <span class="wf-card-icon">🧪</span>
           QA Lead Review
           <span class="wf-card-label">Approve / Reject / Defer</span>
           <div class="card-tooltip"><div class="ctt">QA Lead Review</div>QA Lead reviews test coverage, regression risk, and quality assurance plan. Can Approve, Reject, or Defer.</div>
         </div>
-        <div class="wf-card wf-card-approval" data-email-key="approval_review">
+        <div class="wf-card wf-card-approval" onclick="showEmail('approval_review')">
           <span class="wf-card-icon">🧑‍💻</span>
           UAT Lead Review
           <span class="wf-card-label">Approve / Reject / Defer</span>
@@ -210,19 +431,19 @@
       <!-- Reminder emails -->
       <div style="margin-top:14px;">
         <div class="wf-detail-grid">
-          <div class="wf-card wf-card-email" style="opacity:.9;" data-email-key="reminder_24">
+          <div class="wf-card wf-card-email" style="opacity:.9;" onclick="showEmail('reminder_24')">
             <span class="wf-card-icon">⏰</span>
             24h Reminder
             <span class="wf-card-label">To: Pending Approvers</span>
             <div class="card-tooltip"><div class="ctt">📧 24-Hour Reminder</div><b>To:</b> Approvers who haven't responded<br><b>Trigger:</b> 24h after initial request<br><b>Tone:</b> Friendly reminder</div>
           </div>
-          <div class="wf-card wf-card-email" style="opacity:.9;" data-email-key="reminder_48">
+          <div class="wf-card wf-card-email" style="opacity:.9;" onclick="showEmail('reminder_48')">
             <span class="wf-card-icon">⏰</span>
             48h Reminder
             <span class="wf-card-label">To: Pending Approvers</span>
             <div class="card-tooltip"><div class="ctt">📧 48-Hour Reminder</div><b>To:</b> Approvers who haven't responded<br><b>Trigger:</b> 48h after initial request<br><b>Tone:</b> Escalation warning</div>
           </div>
-          <div class="wf-card wf-card-email" style="opacity:.85;" data-email-key="reminder_72">
+          <div class="wf-card wf-card-email" style="opacity:.85;" onclick="showEmail('reminder_72')">
             <span class="wf-card-icon">🚨</span>
             72h Escalation
             <span class="wf-card-label">To: Pending Approvers + CCB Facilitator</span>
@@ -254,25 +475,25 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-email" data-email-key="ccb_agenda">
+        <div class="wf-card wf-card-email" onclick="showEmail('ccb_agenda')">
           <span class="wf-card-icon">📧</span>
           CCB Meeting Agenda Email
           <span class="wf-card-label">T-48 hours • To: All CCB Members</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: CCB Agenda</div><b>To:</b> All CCB Members<br><b>Trigger:</b> 48 hours before scheduled CCB meeting<br><b>Content:</b> Meeting agenda, CRs to review, supporting docs, dial-in details</div>
         </div>
-        <div class="wf-card wf-card-milestone" data-email-key="ccb_meeting">
+        <div class="wf-card wf-card-milestone" onclick="showEmail('ccb_meeting')">
           <span class="wf-card-icon">🏛️</span>
           CCB Meeting
           <span class="wf-card-label">Review all change requests</span>
           <div class="card-tooltip"><div class="ctt">CCB Meeting</div>Change Control Board convenes to review change requests. Members discuss risk, impact, resource requirements. Each CR receives a formal decision.</div>
         </div>
-        <div class="wf-card wf-card-decision" data-email-key="ccb_decision">
+        <div class="wf-card wf-card-decision" onclick="showEmail('ccb_decision')">
           <span class="wf-card-icon">◆</span>
           CCB Decision
           <span class="wf-card-label">Approved / Rejected / Deferred</span>
           <div class="card-tooltip"><div class="ctt">CCB Decision Point</div>Board votes on each CR:<br>✅ <b>Approved</b> — proceed to implementation<br>❌ <b>Rejected</b> — returned with rationale<br>⏸️ <b>Deferred</b> — postponed with conditions</div>
         </div>
-        <div class="wf-card wf-card-email" data-email-key="ccb_decision_email">
+        <div class="wf-card wf-card-email" onclick="showEmail('ccb_decision_email')">
           <span class="wf-card-icon">📧</span>
           CCB Decision Notification
           <span class="wf-card-label">To: Change Owner, Stakeholders</span>
@@ -320,31 +541,31 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-email" data-email-key="impl_t7">
+        <div class="wf-card wf-card-email" onclick="showEmail('impl_t7')">
           <span class="wf-card-icon">📧</span>
           T-7 Day Implementation Notice
           <span class="wf-card-label">To: All Stakeholders</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: T-7 Day Notice</div><b>To:</b> All Stakeholders<br><b>Trigger:</b> 7 days before implementation<br><b>Content:</b> Upcoming change details, timeline, expected impact</div>
         </div>
-        <div class="wf-card wf-card-email" data-email-key="impl_t3">
+        <div class="wf-card wf-card-email" onclick="showEmail('impl_t3')">
           <span class="wf-card-icon">📧</span>
           T-3 Day Reminder
           <span class="wf-card-label">To: Technical Team, Change Owner</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: T-3 Day Reminder</div><b>To:</b> Technical Team, Change Owner<br><b>Trigger:</b> 3 days before implementation<br><b>Content:</b> Final preparations checklist, go/no-go confirmation</div>
         </div>
-        <div class="wf-card wf-card-email" data-email-key="impl_t1">
+        <div class="wf-card wf-card-email" onclick="showEmail('impl_t1')">
           <span class="wf-card-icon">📧</span>
           T-1 Day Final Notice
           <span class="wf-card-label">To: All Stakeholders</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: T-1 Day Final Notice</div><b>To:</b> All Stakeholders<br><b>Trigger:</b> 1 day before implementation<br><b>Content:</b> Final notice, maintenance window, rollback readiness</div>
         </div>
-        <div class="wf-card wf-card-form" data-email-key="impl_section6">
+        <div class="wf-card wf-card-form" onclick="showEmail('impl_section6')">
           <span class="wf-card-icon">🚀</span>
           Section 6: Implementation Execution
           <span class="wf-card-label">Implementation details, actual dates</span>
           <div class="card-tooltip"><div class="ctt">Section 6 — Implementation</div>Change Owner + Technical Lead record: Actual implementation date/time, Steps executed, Issues encountered, Stakeholders notified.</div>
         </div>
-        <div class="wf-card wf-card-form" data-email-key="impl_section7">
+        <div class="wf-card wf-card-form" onclick="showEmail('impl_section7')">
           <span class="wf-card-icon">🧪</span>
           Section 7: QA & Testing Sign-Off
           <span class="wf-card-label">Product Owner, QA, SE status</span>
@@ -376,19 +597,19 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-email" data-email-key="pir_reminder">
+        <div class="wf-card wf-card-email" onclick="showEmail('pir_reminder')">
           <span class="wf-card-icon">📧</span>
           PIR Reminder Email
           <span class="wf-card-label">To: Change Owner</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: PIR Reminder</div><b>To:</b> Change Owner<br><b>Trigger:</b> Post-implementation (configurable: 3–7 days after)<br><b>Content:</b> Reminder to complete PIR section, link to form</div>
         </div>
-        <div class="wf-card wf-card-form" data-email-key="pir_section8">
+        <div class="wf-card wf-card-form" onclick="showEmail('pir_section8')">
           <span class="wf-card-icon">📊</span>
           Section 8: PIR Assessment
           <span class="wf-card-label">Outcome, Lessons Learned, Follow-up</span>
           <div class="card-tooltip"><div class="ctt">Section 8 — PIR Plan</div>Change Owner + Technical Lead complete: Implementation outcome assessment, Lessons learned, Follow-up actions required, Recommendations for future changes. Mandatory for Normal/Major changes.</div>
         </div>
-        <div class="wf-card wf-card-system" data-email-key="pir_auto">
+        <div class="wf-card wf-card-system" onclick="showEmail('pir_auto')">
           <span class="wf-card-icon">⚙️</span>
           PIR Tracking
           <span class="wf-card-label">System monitors completion</span>
@@ -419,25 +640,25 @@
     </div>
     <div class="wf-detail">
       <div class="wf-detail-grid">
-        <div class="wf-card wf-card-system" data-email-key="closure_auto">
+        <div class="wf-card wf-card-system" onclick="showEmail('closure_auto')">
           <span class="wf-card-icon">⚙️</span>
           Status → Closed
           <span class="wf-card-label">System updates register</span>
           <div class="card-tooltip"><div class="ctt">Automated Closure</div>System updates CR status to "Closed-Successful" or "Closed-Failed". Updates Change Request Register. Records final metrics (total time, approval time, implementation time).</div>
         </div>
-        <div class="wf-card wf-card-email" data-email-key="closure_notification">
+        <div class="wf-card wf-card-email" onclick="showEmail('closure_notification')">
           <span class="wf-card-icon">📧</span>
           Closure Notification Email
           <span class="wf-card-label">To: All Stakeholders</span>
           <div class="card-tooltip"><div class="ctt">📧 Email: Closure Notification</div><b>To:</b> Change Owner, Technical Lead, Approvers, CCB Facilitator, All Stakeholders<br><b>Trigger:</b> PIR complete & CR closed<br><b>Content:</b> Final status, outcome summary, PIR findings, metrics</div>
         </div>
-        <div class="wf-card wf-card-success" data-email-key="closure_done">
+        <div class="wf-card wf-card-success" onclick="showEmail('closure_done')">
           <span class="wf-card-icon">🏁</span>
           Change Request Complete
           <span class="wf-card-label">Archived in Register</span>
           <div class="card-tooltip"><div class="ctt">Process Complete</div>Change Request is fully closed. All documentation archived. Metrics captured for CCB Dashboard reporting. Lessons learned catalogued for future reference.</div>
         </div>
-        <div class="wf-card wf-card-system" data-email-key="metrics_update">
+        <div class="wf-card wf-card-system" onclick="showEmail('metrics_update')">
           <span class="wf-card-icon">📈</span>
           Dashboard Metrics Updated
           <span class="wf-card-label">Automated reporting</span>
@@ -510,22 +731,22 @@
 </div>
 
 <!-- EMAIL MODAL -->
-<div class="modal-overlay" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal-overlay" id="emailModal">
   <div class="modal">
     <div class="modal-header">
       <h3 id="modalTitle">📧 Email Example</h3>
-      <button type="button" class="modal-close" aria-label="Close" data-action="close-email">&times;</button>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
 <!-- HELP MODAL -->
-<div class="modal-overlay" id="helpModal" role="dialog" aria-modal="true" aria-label="Flowchart Guide">
+<div class="modal-overlay" id="helpModal">
   <div class="modal">
     <div class="modal-header">
       <h3>❓ Flowchart Guide</h3>
-      <button type="button" class="modal-close" aria-label="Close" data-action="close-help">&times;</button>
+      <button class="modal-close" onclick="document.getElementById('helpModal').classList.remove('active')">&times;</button>
     </div>
     <div class="modal-body" style="font-size:13px;line-height:1.7;">
       <h4 style="color:var(--primary);margin-bottom:8px;">How to Use This Flowchart</h4>
@@ -560,6 +781,199 @@
   Moss Energy — Change Control Board Process | Confidential | Document Version 1.0
 </footer>
 
-<script src="js/app.js" defer></script>
+<script>
+// Email content examples
+const emailTemplates = {
+  submission_confirm: {
+    title: '📧 Submission Confirmation Email',
+    fields: [
+      { label: 'To', value: 'Change Owner (requestor@mossenergy.com), CCB Facilitator (ccb@mossenergy.com)' },
+      { label: 'Subject', value: '[CR-2026-0042] Change Request Submitted — Database Migration to Cloud' },
+      { label: 'Body', value: `Dear Change Owner,\n\nYour Change Request has been successfully submitted.\n\n📋 CR Details:\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Category: Normal\n• Priority: High\n• Target Environment: Production\n• Requested Date: April 15, 2026\n\n📌 Next Steps:\n1. Technical Lead will be assigned to complete Sections 3–5\n2. Approval requests will be sent once all sections are complete\n3. You will be notified of the CCB decision\n\nTrack your request: [Link to Change Request Register]\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  approval_request: {
+    title: '📧 Approval Request Email',
+    fields: [
+      { label: 'To', value: 'Business Product Owner, Solution Engineering Lead, QA Lead, UAT Lead' },
+      { label: 'Subject', value: '[ACTION REQUIRED] Approval Needed — CR-2026-0042: Database Migration to Cloud' },
+      { label: 'Body', value: `Dear Approver,\n\nA Change Request requires your review and approval.\n\n📋 CR Summary:\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Category: Normal | Priority: High\n• Risk Level: Medium\n• Target: Production | Date: April 15, 2026\n\n📝 Your Action Required:\nPlease review the change request and provide your approval decision:\n\n  ✅ APPROVE — Proceed to CCB review\n  ❌ REJECT — Return with comments\n  ⏸️ DEFER — Request additional information\n\n[Review & Approve Button]\n\n⏰ Please respond within 48 hours.\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  reminder_24: {
+    title: '📧 24-Hour Approval Reminder',
+    fields: [
+      { label: 'To', value: 'Pending Approvers (who have not yet responded)' },
+      { label: 'Subject', value: '[REMINDER] Approval Pending — CR-2026-0042: Database Migration to Cloud' },
+      { label: 'Body', value: `Dear Approver,\n\nThis is a friendly reminder that your approval is still pending for:\n\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Submitted: 24 hours ago\n\nPlease review and respond at your earliest convenience.\n\n[Review & Approve Button]\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  reminder_48: {
+    title: '📧 48-Hour Approval Reminder',
+    fields: [
+      { label: 'To', value: 'Pending Approvers' },
+      { label: 'Subject', value: '[URGENT] Approval Overdue — CR-2026-0042: Database Migration to Cloud' },
+      { label: 'Body', value: `Dear Approver,\n\n⚠️ Your approval for CR-2026-0042 is now 48 hours overdue.\n\nIf no response is received within 24 hours, this will be escalated to the CCB Facilitator.\n\n[Review & Approve Button]\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  reminder_72: {
+    title: '📧 72-Hour Escalation Notice',
+    fields: [
+      { label: 'To', value: 'Pending Approvers, CCB Facilitator' },
+      { label: 'Subject', value: '[ESCALATION] Approval Not Received — CR-2026-0042' },
+      { label: 'Body', value: `Dear CCB Facilitator,\n\n🚨 The following approver(s) have not responded after 72 hours:\n\n• QA Lead — No response\n\nCR Details:\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n\nPlease intervene to ensure timely processing.\n\nRegards,\nMoss Energy Change Management (Automated)`, isBody: true }
+    ]
+  },
+  ccb_agenda: {
+    title: '📧 CCB Meeting Agenda (T-48 Hours)',
+    fields: [
+      { label: 'To', value: 'All CCB Members' },
+      { label: 'Subject', value: '[CCB Meeting] Agenda — March 25, 2026' },
+      { label: 'Body', value: `Dear CCB Members,\n\nThe next CCB meeting is scheduled for:\n📅 Date: March 25, 2026\n🕐 Time: 2:00 PM EST\n📍 Location: Teams Meeting [Link]\n\n📋 Agenda:\n1. Review of Previous Action Items (10 min)\n2. CR-2026-0042: Database Migration to Cloud — Normal/High (20 min)\n3. CR-2026-0043: API Gateway Update — Standard/Medium (15 min)\n4. CR-2026-0044: Security Patch Deployment — Major/Critical (25 min)\n5. Open Discussion (10 min)\n\n📎 Attachments: CR forms, risk assessments, technical plans\n\nPlease review all materials before the meeting.\n\nRegards,\nCCB Facilitator`, isBody: true }
+    ]
+  },
+  ccb_decision_email: {
+    title: '📧 CCB Decision Notification',
+    fields: [
+      { label: 'To', value: 'Change Owner, All Stakeholders' },
+      { label: 'Subject', value: '[CCB Decision] CR-2026-0042: APPROVED — Database Migration to Cloud' },
+      { label: 'Body', value: `Dear Change Owner,\n\nThe Change Control Board has reviewed your Change Request.\n\n📋 Decision:\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Decision: ✅ APPROVED\n• Conditions: Implementation must occur during maintenance window (Saturday 2:00 AM–6:00 AM)\n• Approved Implementation Date: April 15, 2026\n\n📌 Next Steps:\n1. Coordinate with Technical Lead for implementation planning\n2. You will receive implementation reminders at T-7, T-3, T-1\n3. Complete Section 6 during/after implementation\n4. Complete Section 7 (QA Sign-off) post-implementation\n5. Complete Section 8 (PIR) within 7 days of implementation\n\nRegards,\nCCB Facilitator`, isBody: true }
+    ]
+  },
+  impl_t7: {
+    title: '📧 T-7 Day Implementation Notice',
+    fields: [
+      { label: 'To', value: 'All Stakeholders' },
+      { label: 'Subject', value: '[Implementation Notice] CR-2026-0042 — Scheduled April 15, 2026' },
+      { label: 'Body', value: `Dear Stakeholders,\n\nThis is advance notice of an upcoming change implementation.\n\n📋 Details:\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Implementation Date: April 15, 2026 (Saturday)\n• Window: 2:00 AM – 6:00 AM EST\n• Expected Downtime: 2 hours\n• Affected Systems: Production Database, API Layer\n\n📌 Please ensure your teams are aware and any dependencies are addressed.\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  impl_t3: {
+    title: '📧 T-3 Day Preparation Reminder',
+    fields: [
+      { label: 'To', value: 'Technical Team, Change Owner' },
+      { label: 'Subject', value: '[Action Required] T-3 Preparation — CR-2026-0042' },
+      { label: 'Body', value: `Dear Team,\n\nImplementation in 3 days. Please confirm:\n\n✅ Checklist:\n□ Backups verified and tested\n□ Rollback procedure reviewed\n□ Communication plan ready\n□ On-call team confirmed\n□ Go/No-Go decision: [Confirm by April 13]\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  impl_t1: {
+    title: '📧 T-1 Day Final Notice',
+    fields: [
+      { label: 'To', value: 'All Stakeholders' },
+      { label: 'Subject', value: '[FINAL NOTICE] Implementation Tomorrow — CR-2026-0042' },
+      { label: 'Body', value: `Dear Stakeholders,\n\n🔔 Final reminder: Change implementation is TOMORROW.\n\n• CR: CR-2026-0042 — Database Migration to Cloud\n• Date: April 15, 2026\n• Window: 2:00 AM – 6:00 AM EST\n• Status: GO ✅\n\nFor issues during implementation, contact the on-call team.\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  pir_reminder: {
+    title: '📧 PIR Reminder Email',
+    fields: [
+      { label: 'To', value: 'Change Owner' },
+      { label: 'Subject', value: '[Action Required] PIR Due — CR-2026-0042' },
+      { label: 'Body', value: `Dear Change Owner,\n\nThe Post-Implementation Review (PIR) for your change request is now due.\n\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Implementation Date: April 15, 2026\n• PIR Due By: April 22, 2026\n\nPlease complete Section 8 of the Change Request Form:\n• Implementation outcome assessment\n• Lessons learned\n• Follow-up actions required\n\n[Complete PIR Button]\n\nNote: PIR is mandatory for Normal/Major changes.\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  closure_notification: {
+    title: '📧 Closure Notification Email',
+    fields: [
+      { label: 'To', value: 'Change Owner, Technical Lead, All Approvers, CCB Facilitator, All Stakeholders' },
+      { label: 'Subject', value: '[CLOSED] CR-2026-0042: Database Migration to Cloud — Successfully Completed' },
+      { label: 'Body', value: `Dear Stakeholders,\n\nChange Request CR-2026-0042 has been formally closed.\n\n📋 Final Summary:\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Status: Closed — Successful ✅\n• Submitted: March 20, 2026\n• Approved: March 25, 2026\n• Implemented: April 15, 2026\n• PIR Completed: April 20, 2026\n• Total Lifecycle: 31 days\n\n📊 PIR Findings:\n• Implementation outcome: Successful, no issues\n• Lessons learned: Documented and archived\n• Follow-up actions: None required\n\nThis change request is now archived in the Change Request Register.\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+    ]
+  },
+  // Generic fallbacks for non-email cards
+  submit_form: { title: '📝 Initial Submission (Sections 1–2)', fields: [
+    { label: 'Responsible', value: '👤 Change Owner' },
+    { label: 'Sections', value: 'Section 1: Change Request Details — Section 2: Change Justification' },
+    { label: 'Details', value: `The Change Owner initiates the process by completing:\n\nSection 1 — Change Request Details:\n• CR ID (auto-generated)\n• Change Title & Description\n• Category (Standard/Normal/Major/Emergency)\n• Priority (Low/Medium/High/Critical)\n• Target Environment(s)\n• Requested Implementation Date\n\nSection 2 — Change Justification:\n• Business justification\n• Expected benefits\n• Affected stakeholders\n• Urgency drivers`, isBody: true }
+  ]},
+  auto_crid: { title: '⚙️ Auto-Generated CR ID', fields: [
+    { label: 'System Action', value: 'Automatic CR ID generation' },
+    { label: 'Format', value: 'CR-YYYY-NNNN (e.g., CR-2026-0042)' },
+    { label: 'Details', value: 'System automatically generates a unique CR ID, records the submission timestamp, and captures requestor metadata for tracking purposes.', isBody: true }
+  ]},
+  tech_sections: { title: '🔧 Technical Details (Sections 3–5)', fields: [
+    { label: 'Responsible', value: '🔧 Technical Lead' },
+    { label: 'Details', value: `Section 3 — Risk Assessment Summary:\n• Business Impact rating (1–5)\n• Rollback Complexity rating (1–5)\n• Auto-calculated Overall Risk Level\n• Mitigation Strategies (required if Critical)\n\nSection 4 — Technical Implementation:\n• Implementation approach\n• Technical dependencies\n• Step-by-step plan\n• Required resources\n\nSection 5 — Rollback & Recovery Plan:\n• Rollback procedure\n• Backup and recovery details\n• Recovery time estimates`, isBody: true }
+  ]},
+  tech_assigned: { title: '📧 Technical Assignment Email', fields: [
+    { label: 'To', value: 'Technical Lead' },
+    { label: 'Subject', value: '[Assignment] Technical Review Required — CR-2026-0042' },
+    { label: 'Body', value: `Dear Technical Lead,\n\nYou have been assigned to complete the technical sections for:\n\n• CR ID: CR-2026-0042\n• Title: Database Migration to Cloud\n• Category: Normal | Priority: High\n\nPlease complete:\n• Section 3: Risk Assessment Summary\n• Section 4: Technical Implementation Plan\n• Section 5: Rollback & Recovery Plan\n\nDeadline: Within 3 business days\n\n[Open Change Request Form]\n\nRegards,\nMoss Energy Change Management`, isBody: true }
+  ]},
+  approval_review: { title: '✅ Approver Review Process', fields: [
+    { label: 'Approvers', value: 'Business PO, Solution Engineering Lead, QA Lead, UAT Lead' },
+    { label: 'Actions', value: 'Approve ✅ | Reject ❌ | Defer ⏸️' },
+    { label: 'Details', value: `Each approver independently reviews the change request and can:\n\n✅ Approve — Change meets their criteria\n❌ Reject — Issues found, returned with comments\n⏸️ Defer — Needs more information or postponement\n\nAll four approvals must be received before the CR can proceed to the CCB meeting. Approvals are tracked in Section 9 of the form.`, isBody: true }
+  ]},
+  ccb_meeting: { title: '🏛️ CCB Meeting', fields: [
+    { label: 'Participants', value: 'All CCB Members' },
+    { label: 'Details', value: `The Change Control Board meets to:\n\n1. Review each submitted Change Request\n2. Discuss risk, impact, and resource requirements\n3. Review approval recommendations\n4. Make formal decisions (Approve/Reject/Defer)\n5. Set conditions for approved changes\n6. Assign implementation windows\n\nMeetings are scheduled weekly or as needed for emergency changes.`, isBody: true }
+  ]},
+  ccb_decision: { title: '◆ CCB Decision Point', fields: [
+    { label: 'Outcomes', value: 'Approved ✅ | Rejected ❌ | Deferred ⏸️' },
+    { label: 'Details', value: `✅ Approved:\n• Proceed to implementation planning\n• Conditions may be attached\n• Implementation date confirmed\n\n❌ Rejected:\n• Returned to Change Owner with rationale\n• May resubmit after addressing concerns\n• Status updated to Closed-Rejected\n\n⏸️ Deferred:\n• Postponed with stated conditions\n• Reviewed at next CCB meeting\n• Change Owner notified of reasons`, isBody: true }
+  ]},
+  impl_section6: { title: '🚀 Section 6: Implementation Execution', fields: [
+    { label: 'Responsible', value: '👤 Change Owner + 🔧 Technical Lead' },
+    { label: 'Details', value: `Completed during and after implementation:\n\n• Actual implementation date/time\n• Steps executed\n• Issues encountered\n• Deviations from plan\n• Stakeholders notified\n• Downtime recorded`, isBody: true }
+  ]},
+  impl_section7: { title: '🧪 Section 7: QA & Testing Sign-Off', fields: [
+    { label: 'Responsible', value: '👤 Change Owner + 🔧 Technical Lead' },
+    { label: 'Details', value: `Testing sign-offs required from:\n\n• Product Owner Testing Status: Pass/Fail/N-A\n• QA Testing Status: Pass/Fail/N-A\n• Solution Engineering Testing Status: Pass/Fail/N-A\n\nAll applicable tests must pass before the change can proceed to PIR and closure.`, isBody: true }
+  ]},
+  pir_section8: { title: '📊 Section 8: Post-Implementation Review', fields: [
+    { label: 'Responsible', value: '👤 Change Owner + 🔧 Technical Lead' },
+    { label: 'Details', value: `PIR is mandatory for Normal/Major changes.\n\nAssessment includes:\n• Was the change successful?\n• Were there any unexpected issues?\n• Lessons learned\n• Follow-up actions required\n• Recommendations for future changes\n• Process improvement suggestions`, isBody: true }
+  ]},
+  pir_auto: { title: '⚙️ PIR Tracking System', fields: [
+    { label: 'System Action', value: 'Automated monitoring' },
+    { label: 'Details', value: `System automatically:\n• Tracks PIR completion status\n• Sends follow-up reminders if not completed within SLA\n• Reports overdue PIRs to CCB Facilitator\n• Updates metrics dashboard`, isBody: true }
+  ]},
+  closure_auto: { title: '⚙️ Automated Closure', fields: [
+    { label: 'System Action', value: 'Status update and archival' },
+    { label: 'Details', value: `System automatically:\n• Updates status to "Closed-Successful" or "Closed-Failed"\n• Updates Change Request Register\n• Records final metrics\n  — Total lifecycle time\n  — Approval time\n  — Implementation time\n• Archives all documentation`, isBody: true }
+  ]},
+  closure_done: { title: '🏁 Change Request Complete', fields: [
+    { label: 'Final Status', value: 'Closed and Archived' },
+    { label: 'Details', value: `The change request lifecycle is complete:\n\n• All documentation archived\n• Metrics captured for CCB Dashboard\n• Lessons learned catalogued\n• Register updated with final status\n• Available for historical reporting`, isBody: true }
+  ]},
+  metrics_update: { title: '📈 Dashboard Metrics Updated', fields: [
+    { label: 'System Action', value: 'Automatic metrics refresh' },
+    { label: 'Details', value: `CCB Metrics Dashboard automatically updated with:\n• Completion metrics\n• Time-to-approval statistics\n• Success/failure rates\n• Risk distribution changes\n• Monthly trend data\n• Category breakdown updates`, isBody: true }
+  ]}
+};
+
+function showEmail(key) {
+  const tmpl = emailTemplates[key];
+  if (!tmpl) return;
+  document.getElementById('modalTitle').textContent = tmpl.title;
+  let html = '';
+  tmpl.fields.forEach(f => {
+    html += `<div class="email-field"><label>${f.label}</label><div class="value${f.isBody ? ' body-text' : ''}">${f.value}</div></div>`;
+  });
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('emailModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('emailModal').classList.remove('active');
+}
+
+// Close modal on overlay click
+document.getElementById('emailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('helpModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('active');
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+    document.getElementById('helpModal').classList.remove('active');
+  }
+});
+</script>
 </body>
 </html>
